@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather</title>
+    {{>header}}
+  </head>
+  <body>
+    {{>navbar}}
+    <!-- main header  -->
+    <div class="container-fluid main-header">
+      <div class="row">
+        <div class="col-md-10 col-12 mx-auto">
+          <div class="main_content">
+              <form action="post" class="temp_form">
+                  <input type="search" id="cityName" placeholder="Enter Your City Name" autocomplete="off">
+                  <input type="submit" value="search" id="submitBtn">
+              </form>
+          </div>
+          <div class="tempInfo">
+              <div class="top_layer">
+                  <p id="day">Tuesday</p>
+                  <p id="today_data">28 MAR</p>
+              </div>
+              <div class="main_layer">
+                  <p id="city_name">Get Output Here</p>
+                  <div class="middle_layer data_hide">
+                      <p id="temp"><span id="temp_real_val">0</span><sup>o</sup>C</p>
+                      <p id="temp_status"><i class="fa fa-cloud" aria-hidden="true"></i></p>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer  -->
+   {{>footer}}
+
+   <script src="js/main.js"></script>
+
+   <script>
+       const getCurDay = () => {
+        let curTime = new Date();
+        var weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thrusday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        let days = weekday[curTime.getDay()];
+        let day = document.getElementById('day');
+        day.innerText = days;
+      };
+
+      getCurDay();
+
+      const getCurTime = () => {
+        var months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "July",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        var now = new Date();
+        var month = months[now.getMonth() + 1];
+        var date = now.getDate();
+
+        let hours = now.getHours();
+        let mins = now.getMinutes();
+
+        let periods = "AM";
+
+        if (hours > 12) {
+          periods = "PM";
+          if (hours > 12) hours -= 12;
+        }
+        if (mins < 10) {
+          mins = "0" + mins;
+        }
+        return `${month} ${date} | ${hours} : ${mins} ${periods}`;
+      };
+    const month_day = document.getElementById('today_data');
+    month_day.innerHTML = getCurDay() + " | " + getCurTime();
+   </script>
+
+</body>
+</html>
